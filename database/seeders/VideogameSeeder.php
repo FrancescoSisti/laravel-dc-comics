@@ -32,7 +32,7 @@ class VideogameSeeder extends Seeder
             $videogame->max_players = $faker->optional()->numberBetween(2, 64);
             $videogame->language = $faker->randomElement(['English', 'Italian', 'Spanish', 'French', 'German']);
             $videogame->age_rating = $faker->randomElement(['E', 'E10+', 'T', 'M', 'AO']);
-            $videogame->storage_required = $faker->numberBetween(1000, 100000);
+            $videogame->storage_required = $faker->numberBetween(5, 150);
             $videogame->save();
         }
     }

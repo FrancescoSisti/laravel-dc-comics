@@ -12,7 +12,8 @@ class VideogameController extends Controller
      */
     public function index()
     {
-        //
+        $videogames = Videogame::all();
+        return view('videogames.videogames', compact('videogames'));
     }
 
     /**
@@ -20,7 +21,7 @@ class VideogameController extends Controller
      */
     public function create()
     {
-        //
+        return view('videogames.create');
     }
 
     /**
@@ -28,7 +29,26 @@ class VideogameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required',
+            'description' => 'nullable',
+            'publisher' => 'required',
+            'developer' => 'required',
+            'release_date' => 'required|date',
+            'genre' => 'required',
+            'platform' => 'required',
+            'price' => 'required|numeric',
+            'rating' => 'nullable|integer',
+            'cover_image' => 'nullable|url',
+            'multiplayer' => 'boolean',
+            'max_players' => 'nullable|integer',
+            'language' => 'required',
+            'age_rating' => 'required',
+            'storage_required' => 'required|integer'
+        ]);
+
+        $videogame = Videogame::create($data);
+        return redirect()->route('videogames.index')->with('success', 'Videogame created successfully');
     }
 
     /**
@@ -36,7 +56,7 @@ class VideogameController extends Controller
      */
     public function show(Videogame $videogame)
     {
-        //
+        return view('videogames.show', compact('videogame'));
     }
 
     /**
@@ -44,7 +64,7 @@ class VideogameController extends Controller
      */
     public function edit(Videogame $videogame)
     {
-        //
+        return view('videogames.edit', compact('videogame'));
     }
 
     /**
@@ -52,7 +72,26 @@ class VideogameController extends Controller
      */
     public function update(Request $request, Videogame $videogame)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required',
+            'description' => 'nullable',
+            'publisher' => 'required',
+            'developer' => 'required',
+            'release_date' => 'required|date',
+            'genre' => 'required',
+            'platform' => 'required',
+            'price' => 'required|numeric',
+            'rating' => 'nullable|integer',
+            'cover_image' => 'nullable|url',
+            'multiplayer' => 'boolean',
+            'max_players' => 'nullable|integer',
+            'language' => 'required',
+            'age_rating' => 'required',
+            'storage_required' => 'required|integer'
+        ]);
+
+        $videogame->update($data);
+        return redirect()->route('videogames.index')->with('success', 'Videogame updated successfully');
     }
 
     /**
@@ -60,6 +99,7 @@ class VideogameController extends Controller
      */
     public function destroy(Videogame $videogame)
     {
-        //
+        $videogame->delete();
+        return redirect()->route('videogames.index')->with('success', 'Videogame deleted successfully');
     }
 }
